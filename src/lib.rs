@@ -1,4 +1,4 @@
-use std::{os::raw::c_char, ffi::CString};
+use std::{ffi::CString, os::raw::c_char};
 
 use openfga_dsl_parser::*;
 
@@ -14,15 +14,15 @@ pub fn dsl_to_json(offset: *mut u8, len: usize) -> *mut c_char {
     let doc = parser.parse_document().unwrap();
 
     let json = json::JsonTransformer::new(&doc).serialize();
-    unsafe { DOC = json.clone(); }
+    unsafe {
+        DOC = json.clone();
+    }
     CString::new(json).unwrap().into_raw()
 }
 
 #[no_mangle]
 pub fn doc_len() -> usize {
-    unsafe {
-        DOC.len()
-    }
+    unsafe { DOC.len() }
 }
 
 #[no_mangle]
@@ -31,13 +31,12 @@ pub fn set_at(ptr: *mut i32, byte: i32, overwrite: u32) -> u8 {
         let buf: &mut [i32] = core::slice::from_raw_parts_mut(ptr, 1);
         if buf[0] > 0 {
             if overwrite == 0 {
-                return 0
+                return 0;
             }
         }
         buf[0] = byte;
-
     }
-    return 1
+    return 1;
 }
 
 // use wasm_bindgen::prelude::*;
