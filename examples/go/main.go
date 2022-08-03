@@ -61,6 +61,12 @@ func main() {
 		return
 	}
 
+	set_at, set_at_err := instance.Exports.GetFunction("set_at")
+	if set_at_err != nil {
+		fmt.Println("Got an error import set_at")
+		return
+	}
+
 	// The DSL to parse
 	dsl := []byte("type document")
 	lengthOfDsl := len(dsl)
@@ -80,7 +86,12 @@ func main() {
 	}
 
 	for nth := 0; nth < lengthOfDsl; nth++ {
-		input_memory[nth] = dsl[nth]
+		// input_memory[nth] = dsl[nth]
+		result, err := set_at(inputPointer+nth, dsl[nth], 0)
+		if result.(int32) == 0 || err != nil {
+			fmt.Println("Could not set ", dsl[nth], " at point ", inputPointer+nth)
+			return
+		}
 	}
 
 	// C-string terminates by NULL.

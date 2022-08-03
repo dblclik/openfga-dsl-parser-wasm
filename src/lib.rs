@@ -25,6 +25,21 @@ pub fn doc_len() -> usize {
     }
 }
 
+#[no_mangle]
+pub fn set_at(ptr: *mut i32, byte: i32, overwrite: u32) -> u8 {
+    unsafe {
+        let buf: &mut [i32] = core::slice::from_raw_parts_mut(ptr, 1);
+        if buf[0] > 0 {
+            if overwrite == 0 {
+                return 0
+            }
+        }
+        buf[0] = byte;
+
+    }
+    return 1
+}
+
 // use wasm_bindgen::prelude::*;
 // // use wasmedge_bindgen_macro::*;
 // use openfga_dsl_parser::{Parser, json::JsonTransformer};
