@@ -1,2 +1,2 @@
-# openfga-dsl-parser-wasi
-A WASI target of the OpenFGA DSL Parser
+# openfga-dsl-parser-wasm
+A WASM target of the OpenFGA DSL Parser with examples.
