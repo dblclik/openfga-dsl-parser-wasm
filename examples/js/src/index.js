@@ -20,8 +20,7 @@ async function wasm() {
   buffer.set(input)
   // create a buffer starting at the reference to the exported string
   const offset = instance.exports.dsl_to_json(buffer.byteOffset, buffer.length);
-  const stringBuffer = new Uint8Array(linearMemory.buffer, offset,
-  instance.exports.doc_len());
+  const stringBuffer = new Uint8Array(linearMemory.buffer, offset, instance.exports.doc_len());
 
   // create a string from this buffer
   let str = '';
