@@ -20,3 +20,5 @@ Cargo.lock
 
 examples/go/bin/*
 examples/wasm_binaries/*
+examples/js/dist/*
+examples/js/node_modules/
